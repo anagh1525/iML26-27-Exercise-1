@@ -3,7 +3,7 @@ import pandas as pd
 from sklearn.ensemble import RandomForestClassifier
 
 from iml_interpretability.data import Dataset
-from iml_interpretability.metric import ForestExplanationBurden
+from iml_interpretability.metric import TreeExplanationBurden
 
 
 def test_random_forest_metric():
@@ -25,7 +25,7 @@ def test_random_forest_metric():
     )
     model.fit(X, y)
 
-    metric = ForestExplanationBurden()
+    metric = TreeExplanationBurden()
     score = metric.score(model, dataset)
 
     assert np.isfinite(score)

@@ -60,3 +60,14 @@ def load_titanic(data_home: str | Path = DATA_HOME) -> Dataset:
     X = pd.get_dummies(X, drop_first=True, dtype=float)
 
     return Dataset(name="titanic", X=X, y=y)
+
+
+from sklearn.datasets import load_iris as sklearn_load_iris
+
+def load_iris() -> Dataset:
+    bunch = sklearn_load_iris(as_frame=True)
+    return Dataset(
+        name="iris",
+        X=bunch.data,
+        y=bunch.target,
+    )

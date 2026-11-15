@@ -1,35 +1,35 @@
-"""Run the interpretability evaluation and store the results as a CSV file.
-
-Usage::
-
-    uv run python scripts/run_experiment.py
-"""
-
-from __future__ import annotations
-
 from pathlib import Path
 
 from iml_interpretability import (
-    ForestExplanationBurden,
-    evaluate,
-    get_models,
     load_titanic,
+    load_iris,
+    get_models,
+    evaluate,
+    TreeExplanationBurden,
 )
 
-OUTPUT = Path("results/scores.csv")
 SEED = 0
+OUTPUT = Path("results/scores.csv")
 
 
-def main() -> None:
+def main():
     results = evaluate(
-        datasets=[load_titanic()],
+        datasets=[
+            load_titanic(),
+            load_iris(),
+        ],
         models=get_models(seed=SEED),
-        metrics=[ForestExplanationBurden()],
+        metrics=[TreeExplanationBurden()],
         seed=SEED,
     )
 
-    OUTPUT.parent.mkdir(parents=True, exist_ok=True)
+    OUTPUT.parent.mkdir(
+        parents=True,
+        exist_ok=True,
+    )
+
     results.to_csv(OUTPUT, index=False)
+
     print(results.to_string(index=False))
 
 
