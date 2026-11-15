@@ -9,7 +9,12 @@ from __future__ import annotations
 
 from pathlib import Path
 
-from iml_interpretability import RelativeNumberOfLeaves, evaluate, get_models, load_titanic
+from iml_interpretability import (
+    ForestExplanationBurden,
+    evaluate,
+    get_models,
+    load_titanic,
+)
 
 OUTPUT = Path("results/scores.csv")
 SEED = 0
@@ -19,7 +24,7 @@ def main() -> None:
     results = evaluate(
         datasets=[load_titanic()],
         models=get_models(seed=SEED),
-        metrics=[RelativeNumberOfLeaves()],
+        metrics=[ForestExplanationBurden()],
         seed=SEED,
     )
 
